@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "719842069584",
+    "project_id": "studentbean-f21d6",
+    "storage_bucket": "studentbean-f21d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719842069584:android:2db0798a94d8ebdacd9555",
+        "android_client_info": {
+          "package_name": "com.priyanka.studentbeans_tecttest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719842069584-6i5apbgujg75i96trc69ethen9c13pcr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIKt5rcYJO8VS9C8uaTntJnlfShe1IPkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719842069584-6i5apbgujg75i96trc69ethen9c13pcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
