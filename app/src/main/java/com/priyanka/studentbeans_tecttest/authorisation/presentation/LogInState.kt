@@ -7,7 +7,7 @@ data class LogInState(
     val passwordSignUp: String = "",
     val confirmPasswordSignUp: String = "",
     val signUpError: String? = null,
-   val loginError: String? = null,
+    val loginError: String? = null,
     val isSuccessLogin: Boolean = false,
     val isLoading: Boolean = false
 )

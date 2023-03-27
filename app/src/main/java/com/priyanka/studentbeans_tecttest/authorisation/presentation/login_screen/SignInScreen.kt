@@ -1,37 +1,24 @@
 package com.priyanka.studentbeans_tecttest.authorisation.presentation.login_screen
 
-import android.content.Intent
-import android.net.Uri
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.runtime.*
-import androidx.compose.runtime.R
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.priyanka.studentbeans_tecttest.authorisation.navigation.Screen
-import com.priyanka.studentbeans_tecttest.authorisation.presentation.LogInState
-import com.priyanka.studentbeans_tecttest.authorisation.presentation.signup_screen.SignUpScreen
-import com.priyanka.studentbeans_tecttest.presentation.MainScreen
 import com.priyanka.studentbeans_tecttest.ui.theme.StudentBeans_TectTestTheme
-import kotlinx.coroutines.launch
 
 @Composable
 fun SignInScreen(
@@ -63,7 +50,7 @@ fun SignInScreen(
         }
         TextField(value = state?.userName?:"", onValueChange = {
             loginviewModel?.onUserNameChange(it)},
-            leadingIcon = {Icon(imageVector = Icons.Default.Person, contentDescription = null,)},
+            leadingIcon = {Icon(imageVector = Icons.Default.Person, contentDescription = null)},
             enabled = true,
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
@@ -80,7 +67,7 @@ fun SignInScreen(
 
         TextField(
             value = state?.password?:"", onValueChange = { loginviewModel?.onPasswordNameChange(it) },
-            leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null,)},
+            leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null)},
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.LightGray,

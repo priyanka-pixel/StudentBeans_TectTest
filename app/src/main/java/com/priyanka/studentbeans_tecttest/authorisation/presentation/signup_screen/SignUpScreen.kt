@@ -1,31 +1,25 @@
 package com.priyanka.studentbeans_tecttest.authorisation.presentation.signup_screen
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.priyanka.studentbeans_tecttest.R
 import com.priyanka.studentbeans_tecttest.authorisation.presentation.login_screen.SignInViewModel
-import com.priyanka.studentbeans_tecttest.presentation.MainScreen
 import com.priyanka.studentbeans_tecttest.ui.theme.StudentBeans_TectTestTheme
-import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpScreen(
@@ -57,7 +51,7 @@ fun SignUpScreen(
         }
         TextField(value = state?.userNameSignUp?:"", onValueChange ={loginviewModel?.onUserNameChangeSignUp(it)},
             modifier = Modifier.fillMaxWidth(),
-            leadingIcon = {Icon(imageVector = Icons.Default.Person, contentDescription = null,)},
+            leadingIcon = {Icon(imageVector = Icons.Default.Person, contentDescription = null)},
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.LightGray,
                 cursorColor = Color.Black,
@@ -72,7 +66,7 @@ fun SignUpScreen(
 
         TextField(value = state?.passwordSignUp?:"", onValueChange ={
             loginviewModel?.onPasswordChangeSignUp(it)},
-            leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null,)},
+            leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null)},
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.LightGray,
@@ -88,7 +82,7 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(20.dp))
         TextField(value = state?.confirmPasswordSignUp?:"", onValueChange ={
             loginviewModel?.onConfirmPasswordChange(it)},
-            leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null,)},
+            leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null)},
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.LightGray,
