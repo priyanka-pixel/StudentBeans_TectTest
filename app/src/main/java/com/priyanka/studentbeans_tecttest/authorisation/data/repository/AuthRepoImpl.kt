@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 class AuthRepoImpl {
     val currentUser: FirebaseUser? = Firebase.auth.currentUser
     fun hasUser(): Boolean = Firebase.auth.currentUser != null
-    //fun getUserId(): String = Firebase.auth.currentUser?.uid.orEmpty()
+    fun getUserId(): String = Firebase.auth.currentUser?.uid.orEmpty()
 
     suspend fun createUser(
         email: String,
@@ -24,7 +24,7 @@ class AuthRepoImpl {
                     onComplete.invoke(false)
                 }
             }
-            //.await()
+           // .await()
     }
     suspend fun loginUser(
         email: String,

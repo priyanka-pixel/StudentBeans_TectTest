@@ -4,6 +4,9 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -21,17 +24,18 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.priyanka.studentbeans_tecttest.R
 import com.priyanka.studentbeans_tecttest.authorisation.presentation.login_screen.SignInViewModel
 import com.priyanka.studentbeans_tecttest.presentation.MainScreen
+import com.priyanka.studentbeans_tecttest.ui.theme.StudentBeans_TectTestTheme
 import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpScreen(
-    viewModel: SignInViewModel = hiltViewModel(),
+    loginviewModel: SignInViewModel? = null,
     onNavToHomePage: () -> Unit,
     onNavToLogInPage: () -> Unit,
 ) {
     val context = LocalContext.current
-    val state = viewModel.loginState
-    val isError = state.signUpError != null
+    val state = loginviewModel?.loginState
+    val isError = state?.signUpError != null
 
     Column(
         modifier = Modifier
@@ -49,10 +53,11 @@ fun SignUpScreen(
         )
         Spacer(modifier = Modifier.height(50.dp))
         if (isError) {
-            Text(text = state.signUpError ?: "Unknown error", color = Color.Red)
+            Text(text = state?.signUpError ?: "Unknown error", color = Color.Red)
         }
-        TextField(value = state.userNameSignUp, onValueChange ={viewModel.onUserNameChangeSignUp(it)},
+        TextField(value = state?.userNameSignUp?:"", onValueChange ={loginviewModel?.onUserNameChangeSignUp(it)},
             modifier = Modifier.fillMaxWidth(),
+            leadingIcon = {Icon(imageVector = Icons.Default.Person, contentDescription = null,)},
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.LightGray,
                 cursorColor = Color.Black,
@@ -60,10 +65,14 @@ fun SignUpScreen(
                 focusedIndicatorColor = Color.Transparent
             ), shape = RoundedCornerShape(8.dp),
             singleLine = true,
-            placeholder = { Text(text = "Email") }
+            placeholder = { Text(text = "Email") },
+            isError = isError
         )
+        Spacer(modifier = Modifier.height(20.dp))
 
-        TextField(value = state.passwordSignUp, onValueChange ={viewModel.onPasswordChangeSignUp(it)},
+        TextField(value = state?.passwordSignUp?:"", onValueChange ={
+            loginviewModel?.onPasswordChangeSignUp(it)},
+            leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null,)},
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.LightGray,
@@ -73,9 +82,13 @@ fun SignUpScreen(
             ), shape = RoundedCornerShape(8.dp),
             singleLine = true,
             placeholder = { Text(text = "Password") },
+            isError = isError,
             visualTransformation = PasswordVisualTransformation()
         )
-        TextField(value = state.confirmPasswordSignUp, onValueChange ={viewModel.onConfirmPasswordChange(it)},
+        Spacer(modifier = Modifier.height(20.dp))
+        TextField(value = state?.confirmPasswordSignUp?:"", onValueChange ={
+            loginviewModel?.onConfirmPasswordChange(it)},
+            leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null,)},
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.LightGray,
@@ -84,14 +97,14 @@ fun SignUpScreen(
                 focusedIndicatorColor = Color.Transparent
             ), shape = RoundedCornerShape(8.dp),
             singleLine = true,
-            placeholder = { Text(text = "Confirm Password") },
+            placeholder = { Text(text = "Confirm Password") }, isError = isError,
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(10.dp))
 
         Button(
             onClick = {
-                viewModel.createUser(context)
+                loginviewModel?.createUser(context)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -126,11 +139,11 @@ fun SignUpScreen(
             }
 
         }
-        if (state.isLoading == true){
+        if (state?.isLoading == true){
             CircularProgressIndicator()
         }
-        LaunchedEffect(key1 = viewModel.hasUser){
-            if (viewModel.hasUser == true){
+        LaunchedEffect(key1 = loginviewModel?.hasUser){
+            if (loginviewModel?.hasUser == true){
                 onNavToHomePage.invoke()
             }
         }
@@ -138,9 +151,11 @@ fun SignUpScreen(
 
     @Preview
     @Composable
-    fun PrevSignUpScreen(){
-        SignUpScreen(onNavToHomePage = { /*TODO*/ }) {
-            
+    fun PrevSignUpScreen() {
+        StudentBeans_TectTestTheme {
+            SignUpScreen(onNavToHomePage = { /*TODO*/ }) {
+
+            }
         }
     }
 

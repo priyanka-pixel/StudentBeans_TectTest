@@ -84,10 +84,6 @@ class SignInViewModel @Inject constructor(
                 throw IllegalArgumentException("Email and Password cannot empty")
             }
             loginState = loginState.copy(isLoading = true)
-            if(loginState.passwordSignUp !=
-                loginState.confirmPasswordSignUp){
-                throw IllegalArgumentException("password do not match")
-            }
             loginState = loginState.copy(loginError = null)
             repository.loginUser(
                 loginState.userName,

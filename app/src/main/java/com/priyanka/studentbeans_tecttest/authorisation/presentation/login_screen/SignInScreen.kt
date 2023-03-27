@@ -5,7 +5,11 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.runtime.R
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -26,17 +30,18 @@ import com.priyanka.studentbeans_tecttest.authorisation.navigation.Screen
 import com.priyanka.studentbeans_tecttest.authorisation.presentation.LogInState
 import com.priyanka.studentbeans_tecttest.authorisation.presentation.signup_screen.SignUpScreen
 import com.priyanka.studentbeans_tecttest.presentation.MainScreen
+import com.priyanka.studentbeans_tecttest.ui.theme.StudentBeans_TectTestTheme
 import kotlinx.coroutines.launch
 
 @Composable
 fun SignInScreen(
-    viewModel: SignInViewModel = hiltViewModel(),
+    loginviewModel: SignInViewModel? = null,
     onNavToHomePage: () -> Unit,
     onNavToSignupPage: () -> Unit,
 ) {
     val context = LocalContext.current
-    val state = viewModel.loginState
-    val isError = state.loginError != null
+    val state = loginviewModel?.loginState
+    val isError = state?.loginError != null
 
     Column(
         modifier = Modifier
@@ -54,9 +59,12 @@ fun SignInScreen(
         )
         Spacer(modifier = Modifier.height(50.dp))
         if (isError) {
-            Text(text = state.loginError ?: "Unknown error", color = Color.Red)
+            Text(text = state?.loginError ?: "Unknown error", color = Color.Red)
         }
-        TextField(value = state.userName, onValueChange = { viewModel.onUserNameChange(it) },
+        TextField(value = state?.userName?:"", onValueChange = {
+            loginviewModel?.onUserNameChange(it)},
+            leadingIcon = {Icon(imageVector = Icons.Default.Person, contentDescription = null,)},
+            enabled = true,
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.LightGray,
@@ -65,11 +73,14 @@ fun SignInScreen(
                 focusedIndicatorColor = Color.Transparent
             ), shape = RoundedCornerShape(8.dp),
             singleLine = true,
-            placeholder = { Text(text = "Email") }
+            placeholder = { Text(text = "Email") },
+            isError = isError
         )
+        Spacer(modifier = Modifier.height(20.dp))
 
         TextField(
-            value = state.password, onValueChange = { viewModel.onPasswordNameChange(it) },
+            value = state?.password?:"", onValueChange = { loginviewModel?.onPasswordNameChange(it) },
+            leadingIcon = {Icon(imageVector = Icons.Default.Lock, contentDescription = null,)},
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.LightGray,
@@ -79,13 +90,14 @@ fun SignInScreen(
             ), shape = RoundedCornerShape(8.dp),
             singleLine = true,
             placeholder = { Text(text = "Password") },
+            isError = isError,
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(10.dp))
 
         Button(
             onClick = {
-                viewModel.logInUser(context)
+                loginviewModel?.logInUser(context)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -122,20 +134,23 @@ fun SignInScreen(
             }
 
         }
-        if (state.isLoading == true) {
+        if (state?.isLoading == true) {
             CircularProgressIndicator()
         }
-        LaunchedEffect(key1 = viewModel.hasUser) {
-            if (viewModel.hasUser == true) {
+        LaunchedEffect(key1 = loginviewModel?.hasUser) {
+            if (loginviewModel?.hasUser == true) {
                 onNavToHomePage.invoke()
             }
         }
     }
 }
-    @Preview()
+    @Preview(showSystemUi = true)
     @Composable
     fun PrevSignUpScreen() {
-        MainScreen() {
+        StudentBeans_TectTestTheme{
+            SignInScreen(onNavToHomePage = { /*TODO*/ }) {
+
+            }
         }
     }
 
